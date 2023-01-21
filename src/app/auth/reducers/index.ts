@@ -1,40 +1,21 @@
 import {
-    ActionReducer,
-    ActionReducerMap,
-    createFeatureSelector, createReducer,
-    createSelector,
-    MetaReducer, on
+  ActionReducer,
+  ActionReducerMap,
+  createFeatureSelector,
+  createSelector,
+  MetaReducer
 } from '@ngrx/store';
-import {User} from '../model/user.model';
-import {AuthActions} from '../action-types';
 
 
+//NOME DA PROPRIEDADE QUE VAI APARECER NO DEV TOOLS E ESSA
+export const authFeatureKey = 'auth';
 
-export interface AuthState {
-    user: User
+export interface State {
+
 }
 
-export const initialAuthState: AuthState = {
-    user: undefined
+export const reducers: ActionReducerMap<State> = {
+
 };
 
-export const authReducer = createReducer(
-
-    initialAuthState,
-
-    on(AuthActions.login, (state, action) => {
-        return {
-            user: action.user
-        }
-    }),
-
-    on(AuthActions.logout, (state, action) => {
-        return {
-            user: undefined
-        }
-    })
-
-
-
-);
 

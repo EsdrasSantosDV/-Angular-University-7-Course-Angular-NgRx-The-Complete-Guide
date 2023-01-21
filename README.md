@@ -34,7 +34,7 @@ With the following command the angular-cli will be installed globally in your ma
 
 We can install the master branch using the following commands:
 
-    git clone https://github.com/angular-university/ngrx-course.git
+    git clone https://github.com/angular-university/angular-ngrx-course.git
     
 This repository is made of several separate npm modules, that are installable separately. For example, to run the au-input module, we can do the following:
     
@@ -146,13 +146,13 @@ If you are looking for the RxJs and Reactive Patterns Angular Architecture Cours
 ![RxJs and Reactive Patterns Angular Architecture Course](https://s3-us-west-1.amazonaws.com/angular-academy/blog/images/rxjs-reactive-patterns-small.png)
 
 
-## Complete Typescript Course - Build A REST API
+## Lembretes
+ng add @ngrx/store ADICIONA NA RAIZ DA APLICAÇÃO O STORE 
+#
+ng add @ngrx/store-devtools ADICIONA O DEVTOOLS DO NGRX
+#
+LEMBRAR DE ADICIONAR A EXTENSÃO
+REDUX DEVTOOLS EXTENSION
 
-If you are looking for the Complete Typescript 2 Course - Build a REST API, the repo with the full code can be found here:
-
-[https://angular-university.io/course/typescript-2-tutorial](https://github.com/angular-university/complete-typescript-course)
-
-[Github repo for this course](https://github.com/angular-university/complete-typescript-course)
-
-![Complete Typescript Course](https://angular-academy.s3.amazonaws.com/thumbnails/typescript-2-small.png)
-
+#
+ng g store auth/Auth --module auth.module.ts GERA A CONFIGURAÇÃO DO NGRX PRA ESSE MODULO
