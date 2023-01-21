@@ -1,4 +1,4 @@
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { User } from './model/user.model';
 
 
@@ -14,10 +14,8 @@ export const login=createAction(
   //A SEGUNDA PARTE DA ACAO SERA O EVENTO OU O COMMANDO DA
   //ACAO CORRESPONDENTE AQUI ESTAMOS INFROMANDO QUE O USUARIO ESTA
   //FAZENDO LOGIN
-    "[Login Page] User Login"
+    "[Login Page] User Login",
 //SEUGNDO E A CHAMADA PARA A UTILIDADE DO NGRX
-   props<{user:User}>()
+    props<{user:User}>()
 );
 
-
-const newLoginAction=login({user:});

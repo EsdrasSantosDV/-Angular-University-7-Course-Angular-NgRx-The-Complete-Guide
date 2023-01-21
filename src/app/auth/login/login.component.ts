@@ -8,6 +8,7 @@ import { map, tap } from 'rxjs/operators';
 import { noop } from 'rxjs';
 import { Router } from '@angular/router';
 import { AppState } from '../../reducers';
+import { login } from '../auth.actions';
 
 @Component({
   selector: 'login',
@@ -44,7 +45,6 @@ export class LoginComponent implements OnInit {
           console.log(user);
 
           //O STORE NÃO TEM UM METODO DE ADICIONAR ESSE USUARIO NO BANCO
-          //E A UNICA FORMA DE MODIFICAR OS DADOS E USANDO O DISPATCH
           //precismaos dispanchar uma AÇÃO
           /*
         Bem, uma ação é um objeto JavaScript simples que enviamos para a loja para acionar alguma modificação
@@ -56,12 +56,13 @@ export class LoginComponent implements OnInit {
 
         Portanto, a carga útil da ação é qualquer dado que a loja possa precisar para criar uma nova versão
          */
-          this.store.dispatch({
-            type:'Login Action',
-            payload:{
-              user
-            }
-          });
+
+          //DAR DISPATCH NÃO MUDA O ESTADO DA LOJA
+          //POR SI SO UMA ACTION NÃO VAI MODIFICAAR
+          //O ESTADO DA STORE
+          //PRA MODIFICAR DTEM QUE SALVAR A PROPRIEDADE DO USUARIO
+          //PRECISAMOS DIZER A STORE O QUE FAZER COM A AÇÃO
+          this.store.dispatch(login({user:user}));
           this.router.navigateByUrl('/courses');
         })
       )
