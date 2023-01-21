@@ -7,8 +7,8 @@ import { AuthService } from '../auth.service';
 import { map, tap } from 'rxjs/operators';
 import { noop } from 'rxjs';
 import { Router } from '@angular/router';
-import { AppState } from '../../reducers';
 import { login } from '../auth.actions';
+import { AuthState } from '../reducers';
 
 @Component({
   selector: 'login',
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
     //primeiro precsiamos injetar a store com o parametro que e contido na store
     //AI AGORA CONSEGUIMO SINTERAGIR COM NOSSO STORE
-    private store: Store<AppState>
+    private store: Store<AuthState>
   ) {
     this.form = fb.group({
       email: ['test@angular-university.io', [Validators.required]],
@@ -62,7 +62,13 @@ export class LoginComponent implements OnInit {
           //O ESTADO DA STORE
           //PRA MODIFICAR DTEM QUE SALVAR A PROPRIEDADE DO USUARIO
           //PRECISAMOS DIZER A STORE O QUE FAZER COM A AÇÃO
-          this.store.dispatch(login({user:user}));
+
+          //OS COMPONENTES NÃO MODIFICAM OS DADOS DIRETAMENTE
+          //ELES DESPANCHAM UMA AÇÃO
+          //QUE E APENAS UM OBEJTO JAVASCRIPT QUE TEM
+          //UM TIPO , E UM PAYLOAD OBS:PODE TER UM PAYLOAD OU NÃO
+
+          this.store.dispatch(login({ user: user }));
           this.router.navigateByUrl('/courses');
         })
       )

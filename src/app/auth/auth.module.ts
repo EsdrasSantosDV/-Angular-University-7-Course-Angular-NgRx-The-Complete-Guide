@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import {AuthService} from "./auth.service";
 import { EffectsModule } from '@ngrx/effects';
 import * as fromAuth from './reducers';
+import { authReducer } from './reducers';
 
 @NgModule({
     imports: [
@@ -19,7 +20,10 @@ import * as fromAuth from './reducers';
         MatInputModule,
         MatButtonModule,
         RouterModule.forChild([{path: '', component: LoginComponent}]),
-        StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers),
+        StoreModule.forFeature(fromAuth.authFeatureKey,authReducer),
+        //STTORE E UM BANCO DE DADOS NA MEMORIA
+      //QUE IRA COMPARTILHAR DADOS PRA VARIOS COMPONENTES
+      //DA APLICAÇÃO
 
     ],
     declarations: [LoginComponent],
