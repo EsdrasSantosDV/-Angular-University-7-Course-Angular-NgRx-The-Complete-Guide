@@ -1,0 +1,8 @@
+
+//VAMOS AGRUPAR AS ACTIONS
+import * as AuthActions from './auth.actions'
+
+//AGORA VAMOS EXPORTALAS
+export {AuthActions};
+//COM ISSO CONSEGUIMOS ACESSAR AS ACTIONS DE FORMA AGRUPADAS
+

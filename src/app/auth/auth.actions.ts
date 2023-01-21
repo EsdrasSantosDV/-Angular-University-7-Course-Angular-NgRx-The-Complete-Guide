@@ -19,3 +19,12 @@ export const login=createAction(
     props<{user:User}>()
 );
 
+
+export const logout=createAction(
+  "[Top Menu] Logout"
+  //AQUI E UM EXEMPLO DE ACTION QUE NÃO TEM PAYLOAD
+)
+
+//ESSAS ACTIONS ESTAÕ RELACIONADAS
+//O IDEAL SERIA AGRUPAR ELAS
+
