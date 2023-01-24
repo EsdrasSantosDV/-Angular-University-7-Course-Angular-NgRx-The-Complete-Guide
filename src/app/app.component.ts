@@ -1,63 +1,65 @@
-import {Component, OnInit} from '@angular/core';
-import {select, Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {map} from 'rxjs/operators';
-import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { select, Store } from "@ngrx/store";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from "@angular/router";
 import { AppState } from "./reducers";
 import { login } from "./auth/auth.actions";
+import { isLoggedIn, isLoggedOut } from "./auth/auth.selectors";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
+  loading = true;
 
-    loading = true;
+  isLoggedIn$: Observable<boolean>;
+  isLoggedOut$: Observable<boolean>;
+  constructor(private router: Router, private store: Store<AppState>) {}
 
-    isLoggedIn$:Observable<boolean>;
-    isLoggedOut$:Observable<boolean>;
-    constructor(private router: Router,private  store:Store<AppState>) {
-
-    }
-
-    ngOnInit() {
-
-      this.router.events.subscribe(event  => {
-        switch (true) {
-          case event instanceof NavigationStart: {
-            this.loading = true;
-            break;
-          }
-
-          case event instanceof NavigationEnd:
-          case event instanceof NavigationCancel:
-          case event instanceof NavigationError: {
-            this.loading = false;
-            break;
-          }
-          default: {
-            break;
-          }
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.loading = true;
+          break;
         }
-      });
 
-      //ISSO VAI MOSTRAR  TODOS OS ESTADOS ARMAZENADOS NA STORE
-      //this.store.subscribe(console.log);
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.loading = false;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
 
-      this.isLoggedIn$=this.store.pipe(
-        //CONVERTER PRO BOOLEAN
-        map(state=>!!state["auth"].user)
+    //ISSO VAI MOSTRAR  TODOS OS ESTADOS ARMAZENADOS NA STORE
+    //this.store.subscribe(console.log);
+
+    this.isLoggedIn$ = this.store
+      .pipe(
+        //O SEELCT ELE MAPEA E APLICA UM DISTINTC UNTIL PRA TIRAR TREM REPETIDO
+        //AQUI POR EXEMPLO A STORE VAI FICAR EMITINDO VALOR, E SO QUEREMOS OS VALORES DO FLUXO QUE MUDAR
+        select(isLoggedIn)
       );
 
-     this.isLoggedOut$= this.store.pipe(
-        map(state=>!state["auth"].user)
+    this.isLoggedOut$ = this.store
+      .pipe(
+        select(isLoggedOut)
       );
+  }
 
-    }
-
-    logout() {
-
-    }
-
+  logout() {}
 }
