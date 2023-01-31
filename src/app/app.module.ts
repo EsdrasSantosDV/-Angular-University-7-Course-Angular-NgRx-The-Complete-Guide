@@ -25,14 +25,14 @@ import { AuthGuard } from "./auth/auth.guard";
 
 const routes: Routes = [
   {
-    path: 'courses',
+    path: "courses",
     loadChildren: () =>
-      import('./courses/courses.module').then((m) => m.CoursesModule),
-    canActivate: [AuthGuard]
+      import("./courses/courses.module").then((m) => m.CoursesModule),
+    canActivate: [AuthGuard],
   },
   {
-    path: '**',
-    redirectTo: '/',
+    path: "**",
+    redirectTo: "/",
   },
 ];
 
@@ -50,7 +50,18 @@ const routes: Routes = [
     MatListModule,
     MatToolbarModule,
     AuthModule.forRoot(),
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        //SEMPRE COLOQUE ESSAS CONFIGURAÇOES, MELHORA O DESEMPENHO E O RASTREIO DO NGRX
+        //ESSA CONFIGURAÇÃO NÃO CONSEGUE ATRIBUIR UM VALOR PRO ESTADO
+        strictStateImmutability: true,
+        //TAMBEM PRA ACTION
+        strictActionImmutability: true,
+        strictActionSerializability: true,
+        strictStateSerializability: true,
+      },
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -60,9 +71,9 @@ const routes: Routes = [
     //TENHO A STATE KEY PRECISA SRR A MESMA STRIHNG
     //E TEMOS O ROUTER STATE
     StoreRouterConnectingModule.forRoot({
-      stateKey:'router',
-      routerState:RouterState.Minimal
-    })
+      stateKey: "router",
+      routerState: RouterState.Minimal,
+    }),
   ],
   bootstrap: [AppComponent],
 })
